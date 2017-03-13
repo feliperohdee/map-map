@@ -6,7 +6,7 @@ This is a MapMap data structure, is something like:
 
 		const mapMap = new Map('key', new Map());
 
-but better. It takes care to create SETS automatically on set, and remove keys where the SET is empty, it inherits MAP, so all MAP method are available, obviously.
+but better. It takes care to create MAPS automatically on set, and remove keys where the MAP is empty, it inherits MAP, so all MAP method are available, obviously.
 
 ## Usage
 
