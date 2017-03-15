@@ -1,8 +1,8 @@
 module.exports = class MapMap extends Map {
-	constructor(parentKey, key, value) {
+	constructor(firstKey, secondKey, value) {
 		super();
 
-		this.set(parentKey, key, value);
+		this.set(firstKey, secondKey, value);
 	}
 
 	onRemoveKey(callback) {
@@ -11,9 +11,9 @@ module.exports = class MapMap extends Map {
 		}
 	}
 
-	size(key) {
-		if (key) {
-			const currentMap = this.get(key);
+	size(secondKey) {
+		if (secondKey) {
+			const currentMap = this.get(secondKey);
 
 			if (currentMap) {
 				return currentMap.size;
@@ -23,12 +23,12 @@ module.exports = class MapMap extends Map {
 		return super.size;
 	}
 
-	clear(key) {
-		if (key) {
-			const currentMap = this.get(key);
+	clear(secondKey) {
+		if (secondKey) {
+			const currentMap = this.get(secondKey);
 
 			if (currentMap) {
-				super.delete(key);
+				super.delete(secondKey);
 			}
 		} else {
 			super.clear();
@@ -37,77 +37,77 @@ module.exports = class MapMap extends Map {
 		return this;
 	}
 
-	has(parentKey, key = null) {
-		if (parentKey && key) {
-			const currentMap = this.get(parentKey);
+	has(firstKey, secondKey = null) {
+		if (firstKey && secondKey) {
+			const currentMap = this.get(firstKey);
 
 			if (currentMap) {
-				return currentMap.has(key);
+				return currentMap.has(secondKey);
 			}
 		}
 
-		return super.has(parentKey);
+		return super.has(firstKey);
 	}
 
-	get(parentKey, key) {
-		const currentMap = super.get(parentKey);
+	get(firstKey, secondKey) {
+		const currentMap = super.get(firstKey);
 
-		if (currentMap && key) {
-			return currentMap.get(key);
+		if (currentMap && secondKey) {
+			return currentMap.get(secondKey);
 		}
 
 		return currentMap;
 	}
 
-	set(parentKey, key, value) {
-		if (!parentKey || !key || !value) {
+	set(firstKey, secondKey, value) {
+		if (!firstKey || !secondKey || !value) {
 			return this;
 		}
 
-		const currentMap = this.get(parentKey);
+		const currentMap = this.get(firstKey);
 
 		if (currentMap) {
-			currentMap.set(key, value);
+			currentMap.set(secondKey, value);
 		} else {
-			super.set(parentKey, new Map([
-				[key, value]
+			super.set(firstKey, new Map([
+				[secondKey, value]
 			]));
 		}
 
 		return this;
 	}
 
-	delete(parentKey, key) {
-		if (!parentKey) {
+	delete(firstKey, secondKey) {
+		if (!firstKey) {
 			return this;
 		}
 
-		const currentMap = this.get(parentKey);
+		const currentMap = this.get(firstKey);
 
-		if (currentMap && key) {
-			currentMap.delete(key);
+		if (currentMap && secondKey) {
+			currentMap.delete(secondKey);
 
 			if (!currentMap.size) {
-				super.delete(parentKey);
+				super.delete(firstKey);
 
 				if (this._onRemoveKey) {
-					this._onRemoveKey(parentKey);
+					this._onRemoveKey(firstKey);
 				}
 			}
 		} else {
-			super.delete(parentKey);
+			super.delete(firstKey);
 		}
 
 		return this;
 	}
 
-	forEach(parentKey, callback) {
-		if (typeof parentKey === 'function') {
-			[callback, parentKey] = [parentKey, null];
+	forEach(firstKey, callback) {
+		if (typeof firstKey === 'function') {
+			[callback, firstKey] = [firstKey, null];
 		}
 
-		if (parentKey) {
-			const currentMap = this.get(parentKey);
+		if (firstKey) {
+			const currentMap = this.get(firstKey);
 
 			if (currentMap) {
 				currentMap.forEach(callback.bind(callback));
